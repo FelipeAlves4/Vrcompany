@@ -1,0 +1,126 @@
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background: #0d0d0d;
+    color: white;
+}
+
+/* HEADER */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #222;
+}
+
+header h1 {
+    font-size: 22px;
+    letter-spacing: 2px;
+}
+
+.cart {
+    cursor: pointer;
+}
+
+/* BANNER */
+.banner {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.banner h2 {
+    font-size: 28px;
+}
+
+.banner p {
+    color: #aaa;
+}
+
+/* GRID */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+/* CARD */
+.card {
+    background: #111;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: scale(1.03);
+}
+
+.card img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+.card-content {
+    padding: 15px;
+}
+
+.card h3 {
+    margin: 0;
+}
+
+.card p {
+    color: #ccc;
+}
+
+button {
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    background: white;
+    color: black;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.hero {
+    height: 80vh;
+    background: url('../img/image.png') center/cover no-repeat;
+    position: relative;
+}
+
+.overlay {
+    background: rgba(0, 0, 0, 0.6);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.overlay h1 {
+    font-size: 48px;
+    letter-spacing: 4px;
+}
+
+.overlay p {
+    margin: 10px 0;
+    color: #ccc;
+}
+
+.overlay button {
+    padding: 12px 25px;
+    background: white;
+    color: black;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.overlay button:hover {
+    background: #ddd;
+}
