@@ -1,35 +1,144 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-    <meta charset="UTF-8">
-    <title>VR Company</title>
-    <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VR Company | Moda Street Premium</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
 
-    <header>
-        <h1>VR COMPANY</h1>
-        <div class="cart">🛒 <span id="contador">0</span></div>
-    </header>
-    <section class="hero">
-        <div class="overlay">
-            <h1>VR COMPANY</h1>
-            <p>Seja único. Vista atitude.</p>
-            <button>Ver produtos</button>
-        </div>
-    </section>
-    <section class="banner">
-        <h2>Seja único.</h2>
-        <p>Produtos limitados</p>
-    </section>
+  <header class="topbar">
+    <div class="logo-wrap">
+      <img class="logo-img" src="img/logo.png" alt="Logo VR Company">
+      <h1>VR COMPANY</h1>
+    </div>
+    <nav class="nav-links">
+      <a href="#produtos">Colecao</a>
+      <a href="#diferenciais">Diferenciais</a>
+      <a href="#sobre">Sobre</a>
+    </nav>
+    <div class="cart" onclick="abrirCarrinho()">
+      <span>🛒</span>
+      <span class="contador" id="contador">0</span>
+    </div>
+  </header>
 
-    <main>
-        <div id="produtos" class="grid"></div>
-    </main>
+  <section class="hero">
+    <div class="hero-bg" id="heroBg"></div>
+    <div class="overlay">
+      <p class="kicker">NOVA DROP 2026</p>
+      <h2>Estilo de rua com cara de grife</h2>
+      <p>Pecas selecionadas para quem quer presenca, atitude e autenticidade.</p>
+      <div class="hero-actions">
+        <button onclick="scrollParaProdutos()">Ver produtos</button>
+        <button class="btn-secondary" onclick="abrirCarrinho()">Abrir carrinho</button>
+      </div>
+      <div class="hero-indicators" id="heroIndicators">
+        <button class="dot active" onclick="trocarBanner(0)" aria-label="Banner 1"></button>
+        <button class="dot" onclick="trocarBanner(1)" aria-label="Banner 2"></button>
+        <button class="dot" onclick="trocarBanner(2)" aria-label="Banner 3"></button>
+      </div>
+    </div>
+  </section>
 
-    <script src="js/script.js"></script>
+  <section id="diferenciais" class="trust-section">
+    <div class="trust-item">
+      <h4>Envio rapido</h4>
+      <p>Despacho em ate 24h para todo o Brasil.</p>
+    </div>
+    <div class="trust-item">
+      <h4>Pagamento seguro</h4>
+      <p>Checkout simplificado e suporte direto no WhatsApp.</p>
+    </div>
+    <div class="trust-item">
+      <h4>Qualidade premium</h4>
+      <p>Pecas selecionadas com foco em conforto e durabilidade.</p>
+    </div>
+  </section>
+
+  <section class="products-section">
+    <div class="section-head">
+      <h3>Colecao em destaque</h3>
+      <p>Curadoria VR com acabamento premium e modelagem moderna.</p>
+    </div>
+    <div class="catalog-controls">
+      <input type="search" id="buscaProduto" placeholder="Buscar produto..." aria-label="Buscar produto">
+      <select id="filtroCategoria" aria-label="Filtrar por categoria">
+        <option value="todos">Todas categorias</option>
+        <option value="Camisetas">Camisetas</option>
+        <option value="Moletons">Moletons</option>
+      </select>
+      <select id="ordenacaoPreco" aria-label="Ordenar por preco">
+        <option value="relevancia">Ordenacao padrao</option>
+        <option value="menor-preco">Menor preco</option>
+        <option value="maior-preco">Maior preco</option>
+      </select>
+    </div>
+    <main id="produtos" class="grid"></main>
+  </section>
+
+  <section class="testimonials">
+    <h3>Clientes que confiam na VR</h3>
+    <div class="testimonials-grid">
+      <article>
+        <p>"Chegou rapido e a qualidade me surpreendeu. Com certeza vou pedir de novo."</p>
+        <strong>- Lucas M.</strong>
+      </article>
+      <article>
+        <p>"Site bonito, compra facil e atendimento no WhatsApp muito bom."</p>
+        <strong>- Fernanda R.</strong>
+      </article>
+      <article>
+        <p>"A modelagem ficou perfeita. Cara de marca grande mesmo."</p>
+        <strong>- Gustavo P.</strong>
+      </article>
+    </div>
+  </section>
+
+  <section id="sobre" class="about">
+    <h3>Sobre a VR Company</h3>
+    <p>
+      Criamos uma loja com foco em estilo urbano e experiencia simples de compra.
+      Escolha as pecas, monte seu carrinho e finalize direto no WhatsApp.
+    </p>
+  </section>
+
+  <footer class="footer">
+    <div>
+      <h4>VR COMPANY</h4>
+      <p>Moda street premium com experiencia profissional.</p>
+    </div>
+    <div>
+      <h4>Contato</h4>
+      <p>WhatsApp: (14) 99868-1929</p>
+      <p>Instagram: @vrcompany</p>
+    </div>
+    <div>
+      <h4>Atendimento</h4>
+      <p>Seg a Sex: 9h as 18h</p>
+      <p>Sabado: 9h as 13h</p>
+    </div>
+  </footer>
+
+  <div id="carrinhoModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-head">
+        <h2>Seu carrinho</h2>
+        <button class="icon-close" onclick="fecharCarrinho()">X</button>
+      </div>
+      <div id="itensCarrinho"></div>
+      <h3 id="total"></h3>
+
+      <button onclick="enviarPedidoWhatsApp()">Finalizar no WhatsApp</button>
+      <button class="btn-secondary" onclick="fecharCarrinho()">Continuar comprando</button>
+    </div>
+  </div>
+  <div id="toast" class="toast"></div>
+
+  <script src="js/script.js"></script>
 </body>
-
 </html>

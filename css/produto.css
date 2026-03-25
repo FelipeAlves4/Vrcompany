@@ -1,0 +1,272 @@
+:root {
+    --bg: #0b0c10;
+    --card: #11131a;
+    --card-soft: #171a24;
+    --text: #f4f6ff;
+    --muted: #aeb4c9;
+    --line: #2a3042;
+    --accent: #ff6b35;
+    --accent-soft: #ff875d;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Manrope", sans-serif;
+    background:
+        radial-gradient(circle at top right, #2a2238 0, transparent 40%),
+        radial-gradient(circle at left 20%, #1e2e3c 0, transparent 35%),
+        var(--bg);
+    color: var(--text);
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 14px;
+    padding: 18px 6vw;
+    border-bottom: 1px solid var(--line);
+    background: rgba(11, 12, 16, 0.88);
+    backdrop-filter: blur(8px);
+}
+
+.brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: var(--text);
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.brand img {
+    width: 44px;
+    height: 44px;
+    object-fit: contain;
+    border-radius: 12px;
+    border: 1px solid var(--line);
+    background: rgba(255, 255, 255, 0.06);
+    padding: 4px;
+}
+
+.back-btn {
+    text-decoration: none;
+    color: var(--text);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 10px 14px;
+    font-weight: 700;
+}
+
+.produto-page {
+    padding: 40px 6vw;
+}
+
+.breadcrumb {
+    max-width: 1080px;
+    margin: 0 auto 14px;
+    color: var(--muted);
+}
+
+.breadcrumb a {
+    color: var(--text);
+    text-decoration: none;
+}
+
+.produto-card {
+    max-width: 1080px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(280px, 500px) 1fr;
+    gap: 28px;
+    background: linear-gradient(150deg, rgba(255, 255, 255, 0.03), transparent 40%), var(--card);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 22px;
+}
+
+.produto-card img {
+    width: 100%;
+    border-radius: 16px;
+    object-fit: cover;
+    max-height: 640px;
+}
+
+.produto-info h1 {
+    margin: 0;
+    font-size: clamp(28px, 4vw, 40px);
+}
+
+.preco {
+    margin: 8px 0 0;
+    color: var(--accent-soft);
+    font-size: 30px;
+    font-weight: 800;
+}
+
+.descricao {
+    margin-top: 16px;
+    color: #d3d9eb;
+    line-height: 1.65;
+}
+
+.meta {
+    margin-top: 20px;
+    display: grid;
+    gap: 10px;
+}
+
+.meta div {
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 10px 12px;
+    color: var(--muted);
+}
+
+.acoes {
+    margin-top: 20px;
+    display: grid;
+    gap: 10px;
+}
+
+button,
+.btn-zap {
+    width: 100%;
+    border: none;
+    text-decoration: none;
+    text-align: center;
+    border-radius: 12px;
+    padding: 12px 14px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+button {
+    background: linear-gradient(140deg, var(--accent), var(--accent-soft));
+    color: #131313;
+}
+
+.btn-zap {
+    background: #25d366;
+    color: #111;
+}
+
+.erro {
+    max-width: 600px;
+    margin: 60px auto;
+    padding: 20px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: var(--card);
+}
+
+.beneficios {
+    max-width: 1080px;
+    margin: 20px auto 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px;
+}
+
+.beneficios article {
+    margin: 0;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 14px;
+}
+
+.beneficios h4 {
+    margin: 0;
+}
+
+.beneficios p {
+    margin: 8px 0 0;
+    color: var(--muted);
+}
+
+.relacionados {
+    max-width: 1080px;
+    margin: 24px auto 0;
+}
+
+.relacionados h3 {
+    margin: 0 0 14px;
+}
+
+.related-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px;
+}
+
+.related-card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    overflow: hidden;
+}
+
+.related-card img {
+    width: 100%;
+    height: 230px;
+    object-fit: cover;
+}
+
+.related-card .info {
+    padding: 12px;
+}
+
+.related-card h4 {
+    margin: 0;
+}
+
+.related-card p {
+    margin: 8px 0 0;
+    color: var(--accent-soft);
+    font-weight: 700;
+}
+
+.related-card a {
+    display: inline-block;
+    margin-top: 10px;
+    color: var(--text);
+    text-decoration: none;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 8px 10px;
+    font-weight: 700;
+}
+
+.toast {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 35;
+    transform: translateY(20px);
+    opacity: 0;
+    pointer-events: none;
+    background: #121826;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 12px 14px;
+    color: var(--text);
+    transition: 0.3s ease;
+}
+
+.toast.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+@media (max-width: 860px) {
+    .produto-card {
+        grid-template-columns: 1fr;
+    }
+}
