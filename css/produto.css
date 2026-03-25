@@ -152,6 +152,11 @@ button {
     color: #131313;
 }
 
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
 .btn-zap {
     background: #25d366;
     color: #111;

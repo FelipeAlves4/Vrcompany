@@ -1,10 +1,5 @@
-const produtos = [
-    { id: 1, nome: "Camiseta Preta", preco: 79.90, imagem: "img/1.jpg", categoria: "Camisetas" },
-    { id: 2, nome: "Moletom", preco: 149.90, imagem: "img/2.jpg", categoria: "Moletons" },
-    { id: 3, nome: "Camiseta Azul", preco: 69.90, imagem: "img/3.jpg", categoria: "Camisetas" }
-];
-
 let carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
+let produtos = obterProdutos();
 const formatoPreco = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
 const banners = ["img/banner.jpg", "img/banner2.png", "img/banner3.png"];
 let bannerAtual = 0;
@@ -25,11 +20,13 @@ function mostrarToast(mensagem) {
 }
 
 function getProdutosFiltrados() {
+    produtos = obterProdutos();
     const busca = document.getElementById("buscaProduto")?.value.trim().toLowerCase() || "";
     const categoria = document.getElementById("filtroCategoria")?.value || "todos";
     const ordenacao = document.getElementById("ordenacaoPreco")?.value || "relevancia";
 
     let lista = [...produtos].filter(item => {
+        if (item.ativo === false) return false;
         const atendeBusca = item.nome.toLowerCase().includes(busca);
         const atendeCategoria = categoria === "todos" || item.categoria === categoria;
         return atendeBusca && atendeCategoria;
@@ -46,6 +43,17 @@ function getProdutosFiltrados() {
     return lista;
 }
 
+function preencherCategorias() {
+    const select = document.getElementById("filtroCategoria");
+    if (!select) return;
+    const atual = select.value || "todos";
+    const categorias = [...new Set(obterProdutos().map(item => item.categoria).filter(Boolean))];
+    select.innerHTML = '<option value="todos">Todas categorias</option>' + categorias
+        .map(categoria => `<option value="${categoria}">${categoria}</option>`)
+        .join("");
+    select.value = categorias.includes(atual) || atual === "todos" ? atual : "todos";
+}
+
 // Mostrar produtos
 function mostrarProdutos() {
     const container = document.getElementById("produtos");
@@ -58,15 +66,18 @@ function mostrarProdutos() {
     }
 
     lista.forEach(p => {
+        const semEstoque = (p.estoque || 0) <= 0;
         container.innerHTML += `
       <div class="card">
         <img src="${p.imagem}" alt="${p.nome}">
         <div class="card-content">
+          ${p.destaque ? '<span class="tag-destaque">Destaque</span>' : ""}
           <h3>${p.nome}</h3>
           <p class="price">${formatoPreco.format(p.preco)}</p>
+          <p class="stock ${semEstoque ? "stock-off" : ""}">${semEstoque ? "Sem estoque" : `Estoque: ${p.estoque}`}</p>
           <div class="card-actions">
             <a class="btn-link" href="produto.html?id=${p.id}">Ver detalhes</a>
-            <button onclick="addCarrinho(${p.id})">Comprar</button>
+            <button onclick="addCarrinho(${p.id})" ${semEstoque ? "disabled" : ""}>${semEstoque ? "Indisponivel" : "Comprar"}</button>
           </div>
         </div>
       </div>
@@ -77,6 +88,10 @@ function mostrarProdutos() {
 // Carrinho
 function addCarrinho(id) {
     const produto = produtos.find(p => p.id === id);
+    if (!produto || produto.ativo === false || (produto.estoque || 0) <= 0) {
+        mostrarToast("Produto indisponivel no momento.");
+        return;
+    }
     carrinho.push(produto);
     localStorage.setItem("carrinho", JSON.stringify(carrinho));
     atualizarContador();
@@ -202,6 +217,7 @@ function iniciarControlesCatalogo() {
 }
 
 // Init
+preencherCategorias();
 iniciarControlesCatalogo();
 mostrarProdutos();
 atualizarContador();

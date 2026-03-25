@@ -1,36 +1,4 @@
-const listaProdutos = [
-    {
-        id: 1,
-        nome: "Camiseta Preta",
-        preco: 79.9,
-        imagem: "img/1.jpg",
-        descricao: "Camiseta premium com tecido macio, caimento moderno e visual minimalista para combinar com qualquer look urbano.",
-        tamanhos: "P, M, G, GG",
-        composicao: "100% algodao penteado",
-        categoria: "Camisetas"
-    },
-    {
-        id: 2,
-        nome: "Moletom",
-        preco: 149.9,
-        imagem: "img/2.jpg",
-        descricao: "Moletom encorpado com toque confortavel, ideal para dias frios mantendo estilo street e acabamento de alta qualidade.",
-        tamanhos: "M, G, GG",
-        composicao: "50% algodao, 50% poliester",
-        categoria: "Moletons"
-    },
-    {
-        id: 3,
-        nome: "Camiseta Azul",
-        preco: 69.9,
-        imagem: "img/3.jpg",
-        descricao: "Camiseta azul com modelagem casual e respiravel. Peca versatil para uso diario com identidade forte.",
-        tamanhos: "P, M, G",
-        composicao: "100% algodao",
-        categoria: "Camisetas"
-    }
-];
-
+const listaProdutos = obterProdutos();
 const formatoPreco = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
 const params = new URLSearchParams(window.location.search);
 const produtoId = Number(params.get("id"));
@@ -48,6 +16,10 @@ function mostrarToast(mensagem) {
 }
 
 function adicionarAoCarrinho(produtoSelecionado) {
+    if (produtoSelecionado.ativo === false || (produtoSelecionado.estoque || 0) <= 0) {
+        mostrarToast("Produto indisponivel no momento.");
+        return;
+    }
     const carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
     carrinho.push({
         id: produtoSelecionado.id,
@@ -87,7 +59,7 @@ function renderRelacionados(produtoAtual) {
     `;
 }
 
-if (!produto) {
+if (!produto || produto.ativo === false) {
     container.innerHTML = `
       <div class="erro">
         <h2>Produto nao encontrado</h2>
@@ -96,6 +68,7 @@ if (!produto) {
       </div>
     `;
 } else {
+    const semEstoque = (produto.estoque || 0) <= 0;
     document.title = `${produto.nome} | VR Company`;
     container.innerHTML = `
       <img src="${produto.imagem}" alt="${produto.nome}">
@@ -104,12 +77,14 @@ if (!produto) {
         <p class="preco">${formatoPreco.format(produto.preco)}</p>
         <p class="descricao">${produto.descricao}</p>
         <div class="meta">
+          <div><strong>SKU:</strong> ${produto.sku || "-"}</div>
           <div><strong>Categoria:</strong> ${produto.categoria}</div>
           <div><strong>Tamanhos:</strong> ${produto.tamanhos}</div>
           <div><strong>Composicao:</strong> ${produto.composicao}</div>
+          <div><strong>Estoque:</strong> ${produto.estoque || 0}</div>
         </div>
         <div class="acoes">
-          <button id="btnComprar">Adicionar ao carrinho</button>
+          <button id="btnComprar" ${semEstoque ? "disabled" : ""}>${semEstoque ? "Indisponivel" : "Adicionar ao carrinho"}</button>
           <a class="btn-zap" href="${montarLinkWhatsApp(produto)}" target="_blank" rel="noopener noreferrer">
             Comprar direto no WhatsApp
           </a>

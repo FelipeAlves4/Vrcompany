@@ -286,11 +286,34 @@ body {
     font-size: 19px;
 }
 
+.tag-destaque {
+    display: inline-block;
+    margin-bottom: 10px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 800;
+    background: #3d1a4d;
+    color: #f5d7ff;
+    border: 1px solid #7a42a5;
+}
+
 .price {
     margin: 10px 0 0;
     color: var(--accent-soft);
     font-size: 20px;
     font-weight: 700;
+}
+
+.stock {
+    margin: 8px 0 0;
+    color: #7fe7b3;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.stock-off {
+    color: #ff8484;
 }
 
 .card-actions {
@@ -334,6 +357,12 @@ button {
 button:hover {
     transform: translateY(-1px);
     opacity: 0.95;
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
 }
 
 .btn-secondary {

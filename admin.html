@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin | VR Company</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html">
+      <img src="img/logo.png" alt="Logo VR Company">
+      <span>VR COMPANY</span>
+    </a>
+    <a class="back-btn" href="index.html">Voltar para loja</a>
+  </header>
+
+  <main class="admin-wrap">
+    <section class="stats-grid" id="statsGrid"></section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <div>
+          <h1>Painel administrativo completo</h1>
+          <p>Cadastre, edite, controle estoque e publique produtos em tempo real.</p>
+        </div>
+        <span class="badge-mode" id="modoFormulario">Modo: Novo produto</span>
+      </div>
+
+      <form id="formProduto" class="form-grid">
+        <input id="produtoId" type="hidden">
+        <input id="nome" type="text" placeholder="Nome do produto" required>
+        <input id="sku" type="text" placeholder="SKU (ex: VR-CAM-004)" required>
+        <input id="preco" type="number" step="0.01" min="0" placeholder="Preco (ex: 99.90)" required>
+        <input id="categoria" type="text" placeholder="Categoria (ex: Camisetas)" required>
+        <input id="imagem" type="text" placeholder="Imagem (ex: img/nova-peca.jpg)" required>
+        <input id="estoque" type="number" min="0" placeholder="Estoque (ex: 20)" required>
+        <input id="tamanhos" type="text" placeholder="Tamanhos (ex: P, M, G, GG)" required>
+        <input id="composicao" type="text" placeholder="Composicao (ex: 100% algodao)" required>
+        <label class="check-item"><input id="destaque" type="checkbox"> Produto em destaque</label>
+        <label class="check-item"><input id="ativo" type="checkbox" checked> Produto ativo na loja</label>
+        <textarea id="descricao" rows="4" placeholder="Descricao do produto" required></textarea>
+        <div class="form-actions">
+          <button type="submit" id="btnSalvar">Publicar produto</button>
+          <button type="button" id="btnCancelarEdicao" class="btn-secondary">Cancelar edicao</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <h2>Produtos cadastrados</h2>
+        <div class="head-actions">
+          <button id="exportarJson" class="btn-secondary">Exportar JSON</button>
+          <label class="btn-secondary file-btn">
+            Importar JSON
+            <input id="importarJson" type="file" accept="application/json">
+          </label>
+          <button id="resetar" class="btn-secondary">Restaurar padrao</button>
+        </div>
+      </div>
+      <div class="filters">
+        <input id="buscaAdmin" type="search" placeholder="Buscar por nome, categoria ou SKU...">
+        <select id="filtroStatus">
+          <option value="todos">Todos</option>
+          <option value="ativos">Somente ativos</option>
+          <option value="inativos">Somente inativos</option>
+          <option value="sem-estoque">Sem estoque</option>
+        </select>
+      </div>
+      <div id="listaProdutos" class="lista-produtos"></div>
+    </section>
+  </main>
+
+  <div id="toast" class="toast"></div>
+
+  <script src="js/produtos-db.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>
